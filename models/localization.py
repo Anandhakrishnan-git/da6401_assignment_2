@@ -4,7 +4,7 @@
 import torch
 import torch.nn as nn
 
-#from .layers import CustomDropout
+from layers import CustomDropout
 from vgg11 import VGG11Encoder
 
 class VGG11Localizer(nn.Module):
@@ -25,7 +25,7 @@ class VGG11Localizer(nn.Module):
             nn.Flatten(),
             nn.Linear(512 * 7 * 7, 1024),
             nn.ReLU(inplace=True),
-            #CustomDropout(p=dropout_p),
+            CustomDropout(p=dropout_p),
             nn.Linear(1024, 4),
             nn.Sigmoid()  # Output normalized bbox coordinates in [0, 1]
         )
