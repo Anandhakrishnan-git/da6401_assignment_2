@@ -63,11 +63,11 @@ class VGG11Encoder(nn.Module):
 
         if return_features:
             features = {
-                "block1": self.encoder[0:3](f),  # after first block
-                "block2": self.encoder[0:6](f),  # after second block
-                "block3": self.encoder[0:9](f),  # after third block
-                "block4": self.encoder[0:12](f),  # after fourth block
-                "block5": self.encoder[0:15](f),  # after fifth block
+                "block1": self.encoder[0:2](f),  # after first block
+                "block2": self.encoder[0:5](f),  # after second block
+                "block3": self.encoder[0:10](f),  # after third block
+                "block4": self.encoder[0:15](f),  # after fourth block
+                "block5": self.encoder[0:20](f),  # after fifth block
             }
             return x, features
 
