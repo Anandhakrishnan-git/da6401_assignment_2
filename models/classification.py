@@ -4,8 +4,8 @@
 import torch
 import torch.nn as nn
 
-from layers import CustomDropout
-from vgg11 import VGG11Encoder
+from .layers import CustomDropout
+from .vgg11 import VGG11Encoder
 
 
 class VGG11Classifier(nn.Module):
@@ -27,9 +27,9 @@ class VGG11Classifier(nn.Module):
             nn.Linear(512 * 7 * 7, 4096),
             nn.ReLU(inplace=True),
             CustomDropout(p=dropout_p),
-            nn.Linear(4096, 4096),
-            nn.ReLU(inplace=True),
-            CustomDropout(p=dropout_p),
+            #nn.Linear(4096, 4096),
+            #nn.ReLU(inplace=True),
+            #CustomDropout(p=dropout_p),
             nn.Linear(4096, num_classes),
         )
 

@@ -4,8 +4,8 @@
 import torch
 import torch.nn as nn
 
-from layers import CustomDropout
-from vgg11 import VGG11Encoder
+from .layers import CustomDropout
+from .vgg11 import VGG11Encoder
 
 class VGG11UNet(nn.Module):
     """U-Net style segmentation network.

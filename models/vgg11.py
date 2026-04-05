@@ -15,35 +15,41 @@ class VGG11Encoder(nn.Module):
         """Initialize the VGG11Encoder model."""
         super().__init__()
 
-        self.encoder= nn.Sequential(
-
+        self.encoder = nn.Sequential(
             nn.Conv2d(in_channels, 64, kernel_size=3, padding=1),
+            nn.BatchNorm2d(64),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2),
 
             nn.Conv2d(64, 128, kernel_size=3, padding=1),
+            nn.BatchNorm2d(128),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2),
 
             nn.Conv2d(128, 256, kernel_size=3, padding=1),
+            nn.BatchNorm2d(256),
             nn.ReLU(inplace=True),
             nn.Conv2d(256, 256, kernel_size=3, padding=1),
+            nn.BatchNorm2d(256),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2),
 
             nn.Conv2d(256, 512, kernel_size=3, padding=1),
+            nn.BatchNorm2d(512),
             nn.ReLU(inplace=True),
             nn.Conv2d(512, 512, kernel_size=3, padding=1),
+            nn.BatchNorm2d(512),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2),
 
             nn.Conv2d(512, 512, kernel_size=3, padding=1),
+            #nn.BatchNorm2d(512),
             nn.ReLU(inplace=True),
             nn.Conv2d(512, 512, kernel_size=3, padding=1),
+            #nn.BatchNorm2d(512),
             nn.ReLU(inplace=True),
-            nn.MaxPool2d(kernel_size=2, stride=2)
-            
-            )
+            nn.MaxPool2d(kernel_size=2, stride=2),
+        )
 
     def forward(
         self, x: torch.Tensor, return_features: bool = False
@@ -63,11 +69,11 @@ class VGG11Encoder(nn.Module):
 
         if return_features:
             features = {
-                "block1": self.encoder[0:2](f),  # after first block
-                "block2": self.encoder[0:5](f),  # after second block
-                "block3": self.encoder[0:10](f),  # after third block
-                "block4": self.encoder[0:15](f),  # after fourth block
-                "block5": self.encoder[0:20](f),  # after fifth block
+                "block1": self.encoder[0:3](f),  # after first conv+bn+relu
+                "block2": self.encoder[0:7](f),  # after second conv+bn+relu
+                "block3": self.encoder[0:14](f),  # after third block convs
+                "block4": self.encoder[0:21](f),  # after fourth block convs
+                "block5": self.encoder[0:28](f),  # after fifth block convs
             }
             return x, features
 
